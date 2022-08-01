@@ -1,5 +1,3 @@
-// const express = require("express");
-// const fs = require("fs");
 const cTable = require("console.table");
 const inquirer = require("inquirer");
 const db = require("./db/connection");
@@ -42,7 +40,7 @@ function addDepartment() {
       );
     })
     .then(() => {
-      view(start[0].choices[0]);
+      init();
     });
 }
 
@@ -99,7 +97,7 @@ function addRole() {
         });
     })
     .then(() => {
-      view(start[0].choices[1]);
+      init();
     });
 }
 
@@ -159,7 +157,7 @@ function addEmployee() {
         });
     })
     .then(() => {
-      view(start[0].choices[2]);
+      init();
     });
 }
 
@@ -237,9 +235,10 @@ function updateEmployee() {
           .query(
             `UPDATE employees SET cr_id = '${cr_id}' WHERE e_id = ${e_id};`
           );
-        resolve(init());
+        resolve();
       });
-    });
+    })
+    .then(() => view(start[0].choices[2]));
 }
 
 function view(choice) {
